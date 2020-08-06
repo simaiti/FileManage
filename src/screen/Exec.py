@@ -3,12 +3,14 @@ Created on 2020/08/06
 
 @author: am
 '''
-import tkinter as tk
+from tkinter import *
 
 def main():
-    root = tk.Tk()
+    root = Tk()
     root.title("ファイル格納アプリ")
 
+    frame1 = ttk.Frame(root,padding=10)
+    frame1.grid()
 
 
     root.mainloop()
