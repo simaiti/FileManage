@@ -4,58 +4,85 @@ Created on 2020/08/06
 @author: am
 '''
 
-import os,sys
+import os
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from tkinter import filedialog
+from model.FileMove import fileMove
+from idlelib.idle_test.test_configdialog import root
+
 
 def setDir(entry):
-    iDir = os.path.abspath(os.path.dirname(__file__))
-    iDirPath = filedialog.askdirectory(initialdir = iDir)
-    entry.set(iDirPath)
+    dirPath = os.path.abspath(os.path.dirname(__file__))
+    Path = filedialog.askdirectory(initialdir=dirPath)
+    entry.set(Path)
     pass
+
 
 def main():
     root = Tk()
     root.title("ファイル格納アプリ")
 
-    frame1 = ttk.Frame(root,padding=10)
-    frame1.grid()
+    frameOfFrom = ttk.Frame(root, padding=10)
+    frameOfFrom.grid()
 
     # 「フォルダ参照」ラベルの作成
-    IDirLabel1 = ttk.Label(frame1, text="フォルダ参照＞＞", padding=(5, 2))
-    IDirLabel1.pack(side=LEFT)
+    Label1 = ttk.Label(frameOfFrom, text="検索元フォルダ：", padding=(5, 2))
+    Label1.pack(side=LEFT)
 
     # 「フォルダ参照」エントリーの作成
     entry1 = StringVar()
-    IDirEntry1 = ttk.Entry(frame1, textvariable=entry1, width=30)
-    IDirEntry1.pack(side=LEFT)
+    Entry1 = ttk.Entry(frameOfFrom, textvariable=entry1, width=100)
+    Entry1.pack(side=LEFT)
 
     # 「フォルダ参照」ボタンの作成
-    IDirButton1 = ttk.Button(frame1, text="参照", command=setDir(entry1))
-    IDirButton1.pack(side=LEFT)
+    Button1 = ttk.Button(frameOfFrom, text="参照", command=lambda:setDir(entry1))
+    Button1.pack(side=LEFT)
 
+    searchWardFrame = ttk.Frame(root, padding=10)
+    searchWardFrame.grid(sticky="w")
 
-    frame2 = ttk.Frame(root,padding=10)
-    frame2.grid()
+    Label2 = ttk.Label(searchWardFrame, text="検索用ワード ：", padding=(5, 2))
+    Label2.pack(side=LEFT)
+
+    entry2 = StringVar()
+    Entry2 = ttk.Entry(searchWardFrame, textvariable=entry2, width=100)
+    Entry2.pack(side=LEFT)
+
+    frameOfTo = ttk.Frame(root, padding=10)
+    frameOfTo.grid()
 
     # 「フォルダ参照」ラベルの作成
-    IDirLabel2= ttk.Label(frame2, text="フォルダ参照＞＞", padding=(5, 2))
-    IDirLabel2.pack(side=LEFT)
+    Label3 = ttk.Label(frameOfTo, text="移動先フォルダ：", padding=(5, 2))
+    Label3.pack(side=LEFT)
 
     # 「フォルダ参照」エントリーの作成
-    entry2 = StringVar()
-    IDirEntry2 = ttk.Entry(frame2, textvariable=entry2, width=30)
-    IDirEntry2.pack(side=LEFT)
+    entry3 = StringVar()
+    Entry3 = ttk.Entry(frameOfTo, textvariable=entry3, width=100)
+    Entry3.pack(side=LEFT)
 
     # 「フォルダ参照」ボタンの作成
-    IDirButton2 = ttk.Button(frame2, text="参照", command=setDir(entry2))
-    IDirButton2.pack(side=LEFT)
+    Button3 = ttk.Button(frameOfTo, text="参照", command=lambda:setDir(entry3))
+    Button3.pack(side=LEFT)
+
+    cBoxFrame = ttk.Frame(root, padding=10)
+    cBoxFrame.grid(sticky="w")
+
+    mCheck = IntVar()
+    mergeCheck = ttk.Checkbutton(cBoxFrame, text="移動先に検索ワードでフォルダを作成しますか？",variable=mCheck)
+    mergeCheck.pack()
+
+    actionFrame = ttk.Frame(root, padding=10)
+    actionFrame.grid()
+
+    execButton = ttk.Button(actionFrame, text="実行", command=lambda:fileMove(entry1.get(), entry2.get(), entry3.get(),mCheck.get()))
+    execButton.pack()
 
     root.mainloop()
-    pass
 
 
 if __name__ == '__main__':
     main()
+
+
