@@ -17,7 +17,7 @@ def setDir(entry):
     dirPath = os.path.abspath(os.path.dirname(__file__))
     Path = filedialog.askdirectory(initialdir=dirPath)
     entry.set(Path)
-    pass
+
 
 
 def main():
