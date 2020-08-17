@@ -59,6 +59,7 @@ def main():
 
     # 「フォルダ参照」エントリーの作成
     entry3 = StringVar()
+    print(entry3)
     Entry3 = ttk.Entry(frameOfTo, textvariable=entry3, width=100)
     Entry3.pack(side=LEFT)
 
@@ -66,12 +67,14 @@ def main():
     Button3 = ttk.Button(frameOfTo, text="参照", command=lambda:setDir(entry3))
     Button3.pack(side=LEFT)
 
-    cBoxFrame = ttk.Frame(root, padding=10)
-    cBoxFrame.grid(sticky="w")
+    mcBoxFrame = ttk.Frame(root, padding=10)
+    mcBoxFrame.grid(sticky="w")
 
     mCheck = IntVar()
-    mergeCheck = ttk.Checkbutton(cBoxFrame, text="移動先に検索ワードでフォルダを作成しますか？",variable=mCheck)
+    mergeCheck = ttk.Checkbutton(mcBoxFrame, text="移動先に検索ワードでフォルダを作成しますか？",variable=mCheck)
     mergeCheck.pack()
+
+
 
     actionFrame = ttk.Frame(root, padding=10)
     actionFrame.grid()

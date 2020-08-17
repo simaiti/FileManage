@@ -15,21 +15,36 @@ from tkinter import scrolledtext
 from tkinter.scrolledtext import ScrolledText
 from _datetime import datetime
 
-def fileMove(fromDir, searchword, toDir, mergeCheck):
+def fileMove(fromDir, searchward, toDir, mergeCheck):
 
-    print(searchword)
+    print(fromDir)
+    print(searchward)
     print(mergeCheck)
+    print(toDir)
+
+    if fromDir == "":
+        outError(0)
+        return
+
+    if toDir == "":
+        outError(2)
+        return
+
+
+    if searchward == "":
+        if outError(1) == "no":
+            return
 
     if mergeCheck == 1 :
-        dstDir = toDir + "/" + searchword
+        dstDir = toDir + "/" + searchward
         os.makedirs(dstDir, exist_ok=True)
     else:
         dstDir = toDir
 
-    searchword = fromDir + "/*" + searchword + "*"
-    print(searchword)
+    searchward = fromDir + "/*" + searchward + "*"
+    print(searchward)
 
-    moveList = glob.glob(searchword)
+    moveList = glob.glob(searchward)
     for l in moveList:
         print(l)
 
@@ -39,8 +54,16 @@ def fileMove(fromDir, searchword, toDir, mergeCheck):
     showList(dstDir,moveList)
     writeLog(dstDir, moveList)
 
-def writeLog(dstDir,moveList):
-    txtname = datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + ".txt"
+def outError(code):
+    if code == 0:
+        messagebox.showwarning("エラー", "検索元フォルダが指定されていません")
+    elif code == 1:
+        return messagebox.askquestion("実行前確認", "検索ワードが指定されていない為、移動元フォルダ内をすべて移動してもよろしいですか？")
+    elif code == 2:
+        messagebox.showwarning("エラー", "検索元フォルダが指定されていません")
+
+def writeLog(searchward,dstDir,moveList):
+    txtname = searchward + datetime.now().strftime('%Y-%m-%d_%H-%M-%S_%f') + ".txt"
     file = open(txtname, "w",  encoding ="UTF-8")
     file.write("ファイル移動先：" + dstDir +"\n")
     file.write("\n")
