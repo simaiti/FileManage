@@ -10,15 +10,11 @@ from tkinter import ttk
 from tkinter import messagebox
 from tkinter import filedialog
 from model.FileMove import fileMove
-from idlelib.idle_test.test_configdialog import root
-
 
 def setDir(entry):
     dirPath = os.path.abspath(os.path.dirname(__file__))
     Path = filedialog.askdirectory(initialdir=dirPath)
     entry.set(Path)
-
-
 
 def main():
     root = Tk()
@@ -74,8 +70,6 @@ def main():
     mergeCheck = ttk.Checkbutton(mcBoxFrame, text="移動先に検索ワードでフォルダを作成しますか？",variable=mCheck)
     mergeCheck.pack()
 
-
-
     actionFrame = ttk.Frame(root, padding=10)
     actionFrame.grid()
 
@@ -87,5 +81,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
