@@ -15,12 +15,14 @@ from tkinter import scrolledtext
 from tkinter.scrolledtext import ScrolledText
 from _datetime import datetime
 
-def fileMove(fromDir, searchward, toDir, mergeCheck):
+def moveCheck(fromDir, searchward, toDir, mergeCheck,sl,lcBox):
 
     print(fromDir)
     print(searchward)
     print(mergeCheck)
     print(toDir)
+    print(sl)
+    print(lcBox)
 
     if fromDir == "":
         outError(0)
@@ -30,9 +32,23 @@ def fileMove(fromDir, searchward, toDir, mergeCheck):
         outError(2)
         return
 
-    if searchward == "":
+    if searchward == ""  and lcBox == 0:
         if outError(1) == "no":
             return
+
+    if lcBox == 0:
+        filemove(mergeCheck, fromDir, toDir, searchward)
+    else:
+        with open(sl,encoding="utf-8") as wardlist:
+            for ward in wardlist:
+                ward = str(ward).replace("\n", "")
+                filemove(mergeCheck, fromDir, toDir,ward)
+                print(ward)
+
+
+def filemove(mergeCheck,fromDir,toDir,searchward):
+
+    searchward.replace("\n","")
 
     if mergeCheck == 1 :
         dstDir = toDir + "/" + searchward
@@ -51,7 +67,9 @@ def fileMove(fromDir, searchward, toDir, mergeCheck):
         shutil.move(target, dstDir)
 
     showList(dstDir,moveList)
-    writeLog(dstDir, moveList)
+
+    if len(moveList) > ;
+        writeLog(searchward,dstDir, moveList)
 
 def outError(code):
     if code == 0:
@@ -62,6 +80,7 @@ def outError(code):
         messagebox.showwarning("エラー", "移動先フォルダが指定されていません")
 
 def writeLog(searchward,dstDir,moveList):
+
     txtname = searchward + datetime.now().strftime('%Y-%m-%d_%H-%M-%S_%f') + ".txt"
     file = open(txtname, "w",  encoding ="UTF-8")
     file.write("ファイル移動先：" + dstDir +"\n")
@@ -83,7 +102,7 @@ def showList(dstDir,moveList):
     dstDirLabel2 = ttk.Label(dstDirFrame,text=dstDir)
     dstDirLabel2.pack(side=LEFT)
 
-    listFrame = ttk.Frame(root,padding=10,)
+    listFrame = ttk.Frame(root,padding=10)
     listFrame.grid()
 
     listLabel = ttk.Label(listFrame,text="対象ファイル一覧")
