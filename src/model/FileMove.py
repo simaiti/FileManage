@@ -68,7 +68,7 @@ def filemove(mergeCheck,fromDir,toDir,searchward):
 
     showList(dstDir,moveList)
 
-    if len(moveList) > ;
+    if len(moveList) > 0:
         writeLog(searchward,dstDir, moveList)
 
 def outError(code):

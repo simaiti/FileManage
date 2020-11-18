@@ -10,7 +10,7 @@ from tkinter import ttk
 from tkinter import messagebox
 from tkinter import filedialog
 from model.FileMove import moveCheck
-from pip._internal.utils import filetypes
+
 
 
 def setDir(entry):
